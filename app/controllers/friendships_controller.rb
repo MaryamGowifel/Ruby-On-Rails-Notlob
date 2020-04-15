@@ -11,7 +11,7 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
     respond_to do |format|
       if @friendship.save
-        format.html { redirect_to friendships_path, notice: 'Friendship was successfully created.' }
+        format.html { redirect_to friendships_path, notice: @friendship.user.email.concat(" Has Been Added Successfully") }
         format.json { render :show, status: :created, location: @friendship }
       else
         format.html { render :new }
@@ -26,8 +26,23 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.friendships.find(params[:id])
     @friendship.destroy
     respond_to do |format|
-      format.html { redirect_to friendships_path, notice: 'Friendship was successfully destroyed.' }
+      format.html { redirect_to friendships_path, notice: @friendship.user.email.concat(" Has Been Destroyed")  }
       format.json { head :no_content }
+    end
+  end
+
+  def add_friend_by_name
+    @added_user = User.find_by(email: params[:user_email])
+    if @added_user
+      if !current_user.friends.include? @added_user
+        @friendship = current_user.friendships.build(:friend_id => @added_user.id)
+        @friendship.save
+        redirect_to friendships_path, notice: @added_user.email.concat(" Has Been Added Successfully")
+      else
+        redirect_to friendships_path, notice: "Sorry This User Already Exist"
+      end
+    else
+      redirect_to friendships_path, notice: "Sorry User Not Found"
     end
   end
 end
