@@ -1,0 +1,33 @@
+<div class="container">
+    <br>
+    <h1>
+        Friends
+    </h1>
+    <br>
+    <div class="row">
+      <div class="col-5">
+        <h2>Users List</h2>
+        <% for user in @users %>
+          <div class="user">
+              <p>
+                  <strong><%= user.email %></strong>
+                  <%= link_to "Add Friend",friendships_path(:friend_id => user), :method => :post %>
+              </p>
+          </div>
+          <% end %>
+      </div>
+      <div class="col-5 offset-1">
+        <h2>Friend List</h2>
+        <ul>
+          <% for friendship in current_user.friendships %>
+            <li>
+              <%= friendship.friend.email%>
+              <%= link_to "Remove", friendship, :method => :delete %>
+            </li>    
+          <% end %>
+          </li>
+        </ul>
+      </div>
+
+    <div>
+</div>
