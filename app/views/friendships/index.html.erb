@@ -11,7 +11,9 @@
           <div class="user">
               <p>
                   <strong><%= user.email %></strong>
-                  <%= link_to "Add Friend",friendships_path(:friend_id => user), :method => :post %>
+                    <% if !current_user.friends.include? user  %>
+                      <%= link_to "Add Friend",friendships_path(:friend_id => user), :method => :post %>
+                    <% end %>
               </p>
           </div>
           <% end %>

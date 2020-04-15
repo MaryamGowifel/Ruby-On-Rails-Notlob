@@ -3,6 +3,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships.json
   def index
     @users = User.all
+    @userFriends = current_user.friendships
   end
 
   # POST /friendships
