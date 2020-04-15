@@ -1,35 +1,45 @@
+<%= stylesheet_link_tag "friendship" %>
 <div class="container">
-    <br>
-    <h1>
-        Friends
-    </h1>
-    <br>
-    <div class="row">
-      <div class="col-5">
-        <h2>Users List</h2>
+  <h1>
+    Friends Page
+  </h1>
+  <form class="form-inline">
+  <div class="col-auto my-4">
+        <label>
+          Enter Your Friend Name
+        </label>
+  </div>
+  <input type="text" class="form-control col-5" id="inlineFormInputName2" placeholder="e.g Eslam Elkholy">
+  <div class="col-auto my-1">
+  <%= link_to "Add Friend",friendships_path, :method => :post,class: "btn btn-success" %>
+  </div>
+</form>
+  <div class="row">
+    <div class="panel-body col-6">
+      <h2>Users List</h2>
+      <ul class="list-group">
         <% for user in @users %>
-          <div class="user">
-              <p>
-                  <strong><%= user.email %></strong>
-                    <% if !current_user.friends.include? user  %>
-                      <%= link_to "Add Friend",friendships_path(:friend_id => user), :method => :post %>
-                    <% end %>
-              </p>
-          </div>
+        <li class="list-group-item">
+          <strong><%= user.email %></strong>
+          <% if !current_user.friends.include? user  %>
+          <%= link_to "Add Friend",friendships_path(:friend_id => user), :method => :post,class: "btn btn-info controllers" %>
           <% end %>
-      </div>
-      <div class="col-5 offset-1">
-        <h2>Friend List</h2>
-        <ul>
-          <% for friendship in current_user.friendships %>
-            <li>
-              <%= friendship.friend.email%>
-              <%= link_to "Remove", friendship, :method => :delete %>
-            </li>    
-          <% end %>
-          </li>
-        </ul>
-      </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="panel-body col-5 offset-1">
+      <h2>Friends List</h2>
+      <ul class="list-group">
+        <% for friendship in current_user.friendships %>
+        <li class="list-group-item">
+          <strong><%= friendship.friend.email%></strong>
+          <%= link_to "Remove", friendship, :method => :delete,class: "btn btn-danger controllers" %>
+        </li>
+        <% end %>
+        </li>
+      </ul>
+    </div>
 
-    <div>
+  </div>
 </div>
