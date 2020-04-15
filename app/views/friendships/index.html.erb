@@ -15,7 +15,7 @@
     </div>
   <% end %>
   <% flash.each do |type, msg| %>
-    <% if msg == "Sorry This User Already Exist" || msg == "Sorry User Not Found" %>
+    <% if msg == "Sorry This User Already Exist" || msg == "Sorry User Not Exist" %>
       <div class="alert alert-danger col-4">
         <%= msg %>
       </div>

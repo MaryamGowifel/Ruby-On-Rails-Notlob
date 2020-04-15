@@ -42,7 +42,7 @@ class FriendshipsController < ApplicationController
         redirect_to friendships_path, notice: "Sorry This User Already Exist"
       end
     else
-      redirect_to friendships_path, notice: "Sorry User Not Found"
+      redirect_to friendships_path, notice: "Sorry User Not Exist"
     end
   end
 end
